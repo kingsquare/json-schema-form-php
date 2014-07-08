@@ -1,0 +1,10 @@
+{% if name %}
+<fieldset>
+	<legend>{{ name }}</legend>
+{% endif %}
+	<fieldset>
+		{{ content|raw }}
+	</fieldset>
+{% if name %}
+</fieldset>
+{% endif %}

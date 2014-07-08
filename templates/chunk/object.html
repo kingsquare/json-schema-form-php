@@ -1,0 +1,6 @@
+<div>
+	<label>{{label}}</label>
+	{% for pathAsClassName, fieldHtmlChunk in fieldHtmlChunks %}
+	<div class="{{pathAsClassName}}">{{ fieldHtmlChunk|raw }}</div>
+	{% endfor %}
+</div>

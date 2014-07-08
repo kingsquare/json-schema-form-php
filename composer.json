@@ -1,0 +1,19 @@
+{
+    "name": "kingsquare/json-schema-form",
+    "description": "A framework-agnostic PHP Implementation for generating simple forms based on json-schema",
+    "authors": [
+        {
+            "name": "Kingsquare",
+            "email": "json-schema-form@kingsquare.nl"
+        }
+    ],
+    "require": {
+        "justinrainbow/json-schema": "1.3.*",
+        "twig/twig": "1.*"
+    },
+	"autoload": {
+		"psr-4": {
+			"JsonSchemaForm\\": "src/JsonSchemaForm"
+		}
+	}
+}

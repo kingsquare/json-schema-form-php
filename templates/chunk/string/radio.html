@@ -1,0 +1,10 @@
+<label for="{{ id }}">
+	{{ label }}
+</label>
+<div class="radiogroup">
+	{% for option in options %}
+	<div>
+		<input type="radio" name="{{name}}" value="{{ option.value }}" id="{{ option.id }}"><label for="{{ option.id }}">{{ option.label }}</label>
+	</div>
+	{% endfor %}
+</div>

@@ -1,0 +1,252 @@
+{
+	"type": "object",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"title": "Winkelwagen",
+	"properties": {
+		"card": {
+			"type": "object",
+			"title": "Wilt u een kaartje a € 1,50 toevoegen met uw eigen persoonlijke tekst?",
+			"properties": {
+				"type": {
+					"type": "string",
+					"title": "Kies een kaartje:",
+					"enum": [
+						"Geen kaartje",
+						"Blanco kaartje",
+						"Veel liefs kaartje",
+						"Gefeliciteerd kaartje",
+						"Zomaar kaartje",
+						"Beterschap kaartje",
+						"Geboorte zoon kaartje",
+						"Verjaardag kaartje",
+						"Geboorte dochter kaartje",
+						"Ik hou van je kaartje",
+						"Nieuw huwelijk kaartje"
+					]
+				},
+				"text": {
+					"title": "Tekst kaartje",
+					"type": "string"
+				},
+				"anonymous": {
+					"type": "boolean"
+				}
+			},
+			"required": ["type"]
+		},
+		"address": {
+			"type": "object",
+			"properties": {
+				"recipient": {
+					"type": "object",
+					"title": "De ontvanger en bezorgadres:",
+					"properties": {
+						"countryCode": {
+							"title": "Bezorgland",
+							"type": "string",
+							"enum": ["NL", "BE", "LU"]
+						},
+						"addressType": {
+							"title": "Type bezorg-adres",
+							"type": "string",
+							"enum": ["", "residence", "company", "hospital", "funeral center", "church", "other"]
+						},
+						"salutation": {
+							"title": "Aanhef",
+							"type": "string",
+							"enum": ["", "mr", "mrs"]
+						},
+						"initials": {
+							"title": "Voorletter(s)",
+							"type": "string",
+							"minLength": 1
+						},
+						"middleName": {
+							"title": "Tussenvoegsel",
+							"type": "string"
+						},
+						"lastName": {
+							"title": "Achternaam",
+							"type": "string",
+							"minLength": 1
+						},
+						"zipcode": {
+							"title": "Postcode",
+							"type": "string",
+							"minLength": 1
+						},
+						"streetNumber": {
+							"title": "Huisnummer",
+							"type": "string",
+							"minLength": 1
+						},
+						"street": {
+							"title": "Adres",
+							"type": "string",
+							"minLength": 1
+						},
+						"city": {
+							"title": "Plaats",
+							"type": "string",
+							"minLength": 1
+						},
+						"phone": {
+							"title": "Telefoon",
+							"type": "string"
+						}
+					},
+					"required": ["countryCode", "initials", "middleName", "lastName", "zipcode", "streetNumber", "street", "city", "phone"]
+				},
+				"customer": {
+					"type": "object",
+					"title": "Uw eigen gegevens:",
+					"properties": {
+						"equalToDeliveryAddress": {
+							"type": "boolean"
+						},
+						"type": {
+							"title": "U bent",
+							"type": "string",
+							"format": "radio",
+							"enum": ["individual", "company"]
+						},
+						"emailAddress": {
+							"title": "E-mailadres",
+							"type": "string",
+							"format": "email",
+							"minLength": 1
+						},
+						"countryCode": {
+							"title": "Ik woon in",
+							"type": "string",
+							"enum": ["NL", "BE", "DE"]
+						},
+						"salutation": {
+							"title": "Aanhef",
+							"type": "string",
+							"enum": ["", "mr", "mrs"]
+						},
+						"initials": {
+							"title": "Voorletters",
+							"type": "string",
+							"minLength": 1
+						},
+						"middleName": {
+							"title": "Tussenvoegsels",
+							"type": "string"
+						},
+						"lastName": {
+							"title": "Achternaam",
+							"type": "string",
+							"minLength": 1
+						},
+						"zipcode": {
+							"title": "Postcode",
+							"type": "string",
+							"minLength": 1
+						},
+						"streetNumber": {
+							"title": "Huisnummer",
+							"type": "string",
+							"minLength": 1
+						},
+						"street": {
+							"title": "Adres",
+							"type": "string",
+							"minLength": 1
+						},
+						"city": {
+							"title": "Plaats",
+							"type": "string",
+							"minLength": 1
+						},
+						"phone": {
+							"title": "Telefoon",
+							"type": "string"
+						}
+					},
+					"required": ["type", "emailAddress", "countryCode", "salutation", "initials", "middleName", "lastName", "zipcode", "streetNumber", "street", "city", "phone"]
+				}
+			},
+			"required": ["recipient", "customer"]
+		},
+		"delivery": {
+			"type": "object",
+			"properties": {
+				"date": {
+					"title": "Bezorgmoment:",
+					"type": "string",
+					"format": "date"
+				},
+				"partOfDay": {
+					"title": "Kies een dagdeel:",
+					"type": "string",
+					"enum": ["allDay", "morning", "afternoon", "evening"]
+				},
+				"comment": {
+					"title": "Opmerkingen voor www.boeketcadeau.nl:",
+					"type": "string"
+				},
+				"discountCode": {
+					"title": "Kortingscode",
+					"type": "string"
+				}
+			},
+			"required": ["date", "partOfDay", "comment", "discountCode"]
+		},
+		"payment": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"title": "Kies uw betaalwijze",
+					"type": "string",
+					"enum": ["iDeal", "Mastercard", "VISA", "American Express", "PayPal", "After Pay"]
+				},
+				"bank": {
+					"title": "Kies bank",
+					"type": "string",
+					"enum": ["Rabobank", "ABN AMRO", "SNS"]
+				}
+			},
+			"required": ["type", "bank"]
+		},
+		"items": {
+			"title": "Overzicht van uw bestelling:",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"title": "CartItem",
+				"properties": {
+					"productCollectionMemberId": {
+						"title": "Product",
+						"type": "number",
+						"minimum": 1
+					},
+					"quantity": {
+						"title": "Aantal",
+						"type": "number",
+						"minimum": 1
+					}
+				},
+				"required": ["productCollectionMemberId", "quantity"]
+			},
+			"minItems": 1
+		},
+		"final": {
+			"type": "object",
+			"properties": {
+				"termsAndConditions": {
+					"type": "boolean"
+				},
+				"keepMeUpdated": {
+					"type": "boolean"
+				},
+				"postalInvoice": {
+					"type": "boolean"
+				}
+			},
+			"required": ["termsAndConditions", "keepMeUpdated", "postalInvoice"]
+		}
+	},
+	"required": ["card", "address", "delivery", "payment", "final"]
+}

@@ -1,0 +1,8 @@
+{% if isSubForm == false %}
+<form action="{{ action }}" method="post">
+{% endif %}
+	{{ html|raw }}
+{% if isSubForm == false %}
+	<input type="submit" />
+</form>
+{% endif %}
