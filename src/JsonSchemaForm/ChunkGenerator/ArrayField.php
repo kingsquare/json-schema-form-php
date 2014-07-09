@@ -9,7 +9,7 @@ class ArrayField extends \JsonSchemaForm\ChunkGenerator {
 		$subFormGeneratorOptions['name'] = 'item 0';
 		$subFormGeneratorOptions['isSubForm'] = true;
 		$options['content'] = $subFormGenerator->render($subFormGeneratorOptions);
-		return $this->_render('chunk/array.html', $options);
+		return $this->_render('chunk/array.twig', $options);
 	}
 
 }

@@ -8,7 +8,7 @@ class Generator {
 
 	public function __construct($schema) {
 		$this->schema = $schema;
-		$this->twig = new \Twig_Environment(new \Twig_Loader_Filesystem('../templates'));
+		$this->twig = new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__FILE__).'/../../templates'));
 	}
 
 	private function getSchemaNode($key, $container) {
@@ -56,6 +56,6 @@ class Generator {
 		$fieldGeneratorClassName =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($this->schema->type) . 'Field';
 		$fieldGenerator = new $fieldGeneratorClassName($this->schema, $this->twig);
 		$options['html'] = $fieldGenerator->render(array('path' => array('root')));
-		return $this->twig->render('form.html', $options);
+		return $this->twig->render('form.twig', $options);
 	}
 }

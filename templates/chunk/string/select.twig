@@ -1,6 +1,6 @@
-<label for="{{ id }}">
-	{{ label }}
-</label>
+{% if label %}
+<label for="{{ id }}">{{label}}</label>
+{% endif %}
 <select name="{{ name }}" value="{{ value }}" id="{{ id }}">
 	{% for option in options %}
 	<option value="{{ option.value }}">{{ option.label }}</option>

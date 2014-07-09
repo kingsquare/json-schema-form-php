@@ -1,2 +1,4 @@
-<label for="{{ id }}">{{label}}</label>
+{% if label %}
+	<label for="{{ id }}">{{label}}</label>
+{% endif %}
 <input type="text" name="{{ name }}" value="{{ value }}" id="{{ id }}">

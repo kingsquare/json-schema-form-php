@@ -6,7 +6,7 @@ class StringField extends \JsonSchemaForm\ChunkGenerator {
 	public function render(array $options) {
 		if (empty($this->schema->enum)) {
 			$inputType = (isset($this->schema->inputType) ? $this->schema->inputType : 'input');
-			return $this->_render('chunk/string/' . $inputType . '.html', $options);
+			return $this->_render('chunk/string/' . $inputType . '.twig', $options);
 		}
 
 		$options['options'] = array();
@@ -21,6 +21,6 @@ class StringField extends \JsonSchemaForm\ChunkGenerator {
 		}
 
 		$inputType = (isset($this->schema->inputType) ? $this->schema->inputType : 'select');
-		return $this->_render('chunk/string/' . $inputType . '.html', $options);
+		return $this->_render('chunk/string/' . $inputType . '.twig', $options);
 	}
 }

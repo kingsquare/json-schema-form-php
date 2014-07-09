@@ -18,16 +18,18 @@ abstract class ChunkGenerator {
 	 * @return string
 	 */
 	protected function _render($template, array $options) {
-		if (empty($options['label'])) {
-			$options['label'] = $this->getLabel($options);
+		$renderVars = array_merge((array) $this->schema, $options);
+
+		if (!isset($renderVars['label'])) {
+			$renderVars['label'] = $this->getLabel($options);
 		}
-		if (empty($options['id'])) {
-			$options['id'] = $this->getId($options);
+		if (!isset($options['id'])) {
+			$renderVars['id'] = $this->getId($options);
 		}
-		if (empty($options['class'])) {
-			$options['class'] = $this->getClass($options);
+		if (!isset($options['class'])) {
+			$renderVars['class'] = $this->getClass($options);
 		}
-		return $this->twig->render($template, $options);
+		return $this->twig->render($template, $renderVars);
 	}
 
 	/**

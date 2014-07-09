@@ -1,6 +1,6 @@
-<label for="{{ id }}">
-	{{ label }}
-</label>
+{% if label %}
+<label for="{{ id }}">{{label}}</label>
+{% endif %}
 <div class="radiogroup">
 	{% for option in options %}
 	<div>

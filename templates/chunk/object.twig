@@ -1,5 +1,7 @@
 <div>
+	{% if label %}
 	<label>{{label}}</label>
+	{% endif %}
 	{% for pathAsClassName, fieldHtmlChunk in fieldHtmlChunks %}
 	<div class="{{pathAsClassName}}">{{ fieldHtmlChunk|raw }}</div>
 	{% endfor %}
