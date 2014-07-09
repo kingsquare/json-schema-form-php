@@ -1,17 +1,9 @@
 {
   "name": "json-schema-form",
-  "version": "0.0.0",
-  "description": "Generate forms based on JSON Schema ===================================",
-  "main": "Gruntfile.js",
-  "directories": {
-    "example": "examples",
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "BSD-2-Clause",
+  "version": "0.0.1",
+  "description": "Generate forms based on JSON Schema",
+  "author": "Kingsquare BV",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-php": "~0.4.0",

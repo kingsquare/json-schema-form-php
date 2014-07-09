@@ -12,8 +12,6 @@
         "twig/twig": "1.*"
     },
 	"autoload": {
-		"psr-4": {
-			"JsonSchemaForm\\": "src/JsonSchemaForm"
-		}
+		"psr-0": { "JsonSchemaForm": "src/" }
 	}
 }
