@@ -10,9 +10,20 @@ class ObjectField extends \JsonSchemaForm\ChunkGenerator {
 			$newPath = array_merge($options['path'], array($propertyName));
 			$pathAsClassName = preg_replace('![^_a-z0-9-]!i', '-', implode($newPath, '-'));
 
+			$inputName = '';
+			foreach ($newPath as $key => $newPathNibble) {
+				if ($key > 0) {
+					$inputName .= '[';
+				}
+				$inputName .= $newPathNibble;
+				if ($key > 0) {
+					$inputName .= ']';
+				}
+			}
+
 			$fieldHtmlChunks[$pathAsClassName] = $fieldGenerator->render(array(
-				'path' => $newPath,
-				'name' => $propertyName,
+					'path' => $newPath,
+					'name' => $inputName,
 			));
 		}
 		$options['fieldHtmlChunks'] = $fieldHtmlChunks;
