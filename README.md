@@ -30,21 +30,9 @@ echo $formGenerator->render();
 
 See ```examples``` folder for a few more options.
 
-A minimum amount of JavaScript is required for validation and proper array-support. 
-
-Please see and adjust the provided JavaScript _or_ just add the following snippet to the <head>-section of your page
-
-<script data-main="/path/to/jsonSchemaForm.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+Extra styling and JavaScript is required for proper presentation and validation.
 
 ```
-
-### Extra options
- 
- 
- 
- 
- 
-
 ## Running the tests
 
     $ phpunit
