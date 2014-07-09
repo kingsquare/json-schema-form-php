@@ -11,51 +11,33 @@ class Generator {
 		$this->twig = new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__FILE__).'/../../templates'));
 	}
 
-	private function getSchemaNode($key, $container) {
-		if (!$key) {
-			//use $container!
-			return $container;
-		}
-
-		if ($container->type === 'array' && $container->items) {
-			return $this->getSchemaNode($key, $container->items);
-		}
-
-		$keyNibbles = explode('.', $key);
-		$keyNibble = array_shift($keyNibbles);
-		if ($container && $container->properties && isset($container->properties->{$keyNibble})) {
-			return $this->getSchemaNode(implode('.', $keyNibbles), $container->properties->{$keyNibble});
-		}
-		return null;
-	}
-
 	/**
-	 * Possible options
-	 * - action {string}
-	 *
-	 *
-	 * @param array - The options for rendering
+	 * @param array - Any additional options per element for rendering
+	 * e.g. array('my.path' => array('inputType' => 'textarea'))
 	 * @param object - The data to enter in the form
 	 * @param object - Any errors to highlight and apply in the form
 	 * @return string	HTML form
 	 */
-	public function render($options, $data = null, $errors = null) {
-		//update valid with schema $options['form'] config
-		if (!empty($options['form'])) {
-			foreach ($options['form'] as $path => $config) {
-				$schemaNode = $this->getSchemaNode($path, $this->schema);
+	public function render($formRenderOptions = array(), $data = null, $errors = null) {
+		//update valid with schema $formRenderOptions config
+		if (!empty($formRenderOptions)) {
+			foreach ($formRenderOptions as $path => $config) {
+				$schemaNode = JsonPath::getSchemaNode($path, $this->schema);
 				if ($schemaNode) {
-					foreach($config as $key => $value) {
+					foreach ($config as $key => $value) {
 						$schemaNode->{$key} = $value;
 					}
 				}
 			}
-			$options['form'] = null; //to prevent later misunderstandings
 		};
 
 		$fieldGeneratorClassName =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($this->schema->type) . 'Field';
 		$fieldGenerator = new $fieldGeneratorClassName($this->schema, $this->twig);
-		$options['html'] = $fieldGenerator->render(array('path' => array('root')));
+
+		$options['html'] = $fieldGenerator->render(array(
+			'path' => array('root'),
+			'value' => $data
+		));
 		return $this->twig->render('form.twig', $options);
 	}
 }

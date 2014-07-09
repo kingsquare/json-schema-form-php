@@ -32,7 +32,32 @@ See ```examples``` folder for a few more options.
 
 Extra styling and JavaScript is required for proper presentation and validation.
 
+### Process form data
+
+To validate any data in the form against the schema, the form data should be casted to the proper datatypes.
+Validation of form data may look like
+
+```php
+<?php
+$validator = new JsonSchema\Validator();
+$dataParser = new JsonSchemaForm\DataParser();
+
+//cast any posted form-data (strings) to the proper data-types
+$data = $dataParser->parse($_POST['root'], $schema);
+
+$validator->check($data, $this->schema);
+
+$message = "The supplied JSON validates against the schema.\n";
+if (!$validator->isValid()) {
+	$message = "JSON does not validate. Violations:\n";
+	foreach ($validator->getErrors() as $error) {
+		$message .= print_r($error, true);
+	}
+}
+echo $message;
+
 ```
+
 ## Running the tests
 
     $ phpunit

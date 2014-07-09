@@ -4,7 +4,7 @@
 <div class="radiogroup">
 	{% for option in options %}
 	<div>
-		<input type="radio" name="{{name}}" value="{{ option.value }}" id="{{ option.id }}"><label for="{{ option.id }}">{{ option.label }}</label>
+		<input type="radio" name="{{name}}" value="{{ option.value }}" id="{{ option.id }}"{% if (value == option.value) %} checked="checked"{%  endif %}><label for="{{ option.id }}">{{ option.label }}</label>
 	</div>
 	{% endfor %}
 </div>

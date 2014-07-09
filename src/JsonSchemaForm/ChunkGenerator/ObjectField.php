@@ -21,10 +21,16 @@ class ObjectField extends \JsonSchemaForm\ChunkGenerator {
 				}
 			}
 
-			$fieldHtmlChunks[$pathAsClassName] = $fieldGenerator->render(array(
-					'path' => $newPath,
-					'name' => $inputName,
-			));
+			$fieldRenderOptions = array(
+				'path' => $newPath,
+				'name' => $inputName
+			);
+
+			if (isset($options['value']) && isset($options['value']->{$propertyName})) {
+				$fieldRenderOptions['value'] = $options['value']->{$propertyName};
+			}
+
+			$fieldHtmlChunks[$pathAsClassName] = $fieldGenerator->render($fieldRenderOptions);
 		}
 		$options['fieldHtmlChunks'] = $fieldHtmlChunks;
 		return $this->_render('chunk/object.twig', $options);

@@ -1,0 +1,22 @@
+<?php
+namespace JsonSchemaForm;
+
+class JsonPath {
+	static public function getSchemaNode($key, $parentSchemaNode) {
+		if (!$key) {
+			//use $container!
+			return $parentSchemaNode;
+		}
+
+		if ($parentSchemaNode->type === 'array' && $parentSchemaNode->items) {
+			return JsonPath::getSchemaNode($key, $parentSchemaNode->items);
+		}
+
+		$keyNibbles = explode('.', $key);
+		$keyNibble = array_shift($keyNibbles);
+		if ($parentSchemaNode && $parentSchemaNode->properties && isset($parentSchemaNode->properties->{$keyNibble})) {
+			return JsonPath::getSchemaNode(implode('.', $keyNibbles), $parentSchemaNode->properties->{$keyNibble});
+		}
+		return null;
+	}
+}

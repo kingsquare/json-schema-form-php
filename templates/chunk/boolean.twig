@@ -1,4 +1,4 @@
-<input type="checkbox" name="{{ name }}" value="{{ value }}" id="{{ id }}" />
+<input type="checkbox" name="{{ name }}" value="1" id="{{ id }}"{% if value %} checked="checked"{% endif %} />
 {% if label %}
 <label for="{{ id }}">{{label}}</label>
 {% endif %}
