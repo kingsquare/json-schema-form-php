@@ -3,34 +3,20 @@
 namespace JsonSchemaForm\ChunkGenerator;
 
 class ObjectField extends \JsonSchemaForm\ChunkGenerator {
-	public function render(array $options) {
+	public function render($options = array()) {
 		foreach ($this->schema->properties as $propertyName => $propertySchema) {
 			$fieldGeneratorClassName =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($propertySchema->type) . 'Field';
-			$fieldGenerator = new $fieldGeneratorClassName($propertySchema, $this->twig);
-			$newPath = array_merge($options['path'], array($propertyName));
-			$pathAsClassName = preg_replace('![^_a-z0-9-]!i', '-', implode($newPath, '-'));
-
-			$inputName = '';
-			foreach ($newPath as $key => $newPathNibble) {
-				if ($key > 0) {
-					$inputName .= '[';
-				}
-				$inputName .= $newPathNibble;
-				if ($key > 0) {
-					$inputName .= ']';
+			$newPath = array_merge($this->path, array($propertyName));
+			$errors = array();
+			$implodedNewPath = implode('.', $newPath);
+			foreach($this->generator->errors as $error) {
+				if (strpos($error['property'], $implodedNewPath) === 0) {
+					$errors[] = $error;
 				}
 			}
 
-			$fieldRenderOptions = array(
-				'path' => $newPath,
-				'name' => $inputName
-			);
-
-			if (isset($options['value']) && isset($options['value']->{$propertyName})) {
-				$fieldRenderOptions['value'] = $options['value']->{$propertyName};
-			}
-
-			$fieldHtmlChunks[$pathAsClassName] = $fieldGenerator->render($fieldRenderOptions);
+			$fieldGenerator = new $fieldGeneratorClassName($this->generator, $newPath);
+			$fieldHtmlChunks[$fieldGenerator->getDomClass()] = $fieldGenerator->render();
 		}
 		$options['fieldHtmlChunks'] = $fieldHtmlChunks;
 		return $this->_render('chunk/object.twig', $options);

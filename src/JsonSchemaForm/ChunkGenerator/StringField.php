@@ -3,7 +3,7 @@
 namespace JsonSchemaForm\ChunkGenerator;
 
 class StringField extends \JsonSchemaForm\ChunkGenerator {
-	public function render(array $options) {
+	public function render($options = array()) {
 		if (empty($this->schema->enum)) {
 			$inputType = (isset($this->schema->inputType) ? $this->schema->inputType : 'input');
 			$options['type'] = (isset($this->schema->format) ? $this->schema->format : 'text');
@@ -13,7 +13,7 @@ class StringField extends \JsonSchemaForm\ChunkGenerator {
 		$options['options'] = array();
 		foreach($this->schema->enum as $enumValue) {
 			$options['options'][] = array(
-				'id' =>  $this->getDomCompatible(implode(array_merge($options['path'], array($enumValue)),  '-')),
+				'id' =>  $this->getDomCompatible(implode(array_merge($this->path, array($enumValue)),  '-')),
 				'label' => ((isset($this->schema->enumTitles) && isset($this->schema->enumTitles[$enumValue])) ?
 						$this->schema->enumTitles[$enumValue] :
 						$enumValue),

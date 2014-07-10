@@ -2,7 +2,7 @@
 	{% if label %}
 	<legend>{{label}}</legend>
 	{% endif %}
-	{% for pathAsClassName, fieldHtmlChunk in fieldHtmlChunks %}
-	<div class="{{pathAsClassName}}">{{ fieldHtmlChunk|raw }}</div>
+	{% for class, fieldHtmlChunk in fieldHtmlChunks %}
+	<div class="{{class}}">{{ fieldHtmlChunk|raw }}</div>
 	{% endfor %}
 </fieldset>

@@ -1,8 +1,8 @@
 {% if label %}
-    <label for="{{ id }}">{{label}}</label>
+<label for="{{ id }}">{{label}}</label>
 {% endif %}
 <select name="{{ name }}" id="{{ id }}">
-    {% for option in options %}
-        <option value="{{ option.value }}"{% if (value == option.value) %} selected{%  endif %}>{{ option.label }}</option>
-    {% endfor %}
+	{% for option in options %}
+	<option value="{{ option.value }}"{% if (value == option.value) %} selected{%  endif %}>{{ option.label }}</option>
+	{% endfor %}
 </select>

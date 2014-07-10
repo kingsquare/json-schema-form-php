@@ -3,22 +3,34 @@
 namespace JsonSchemaForm;
 
 class Generator {
-	private $schema;
-	private $twig;
+	public $schema;
+	public $twig;
+	public $data;
+	public $errors;
+	public $errorPaths;
 
-	public function __construct($schema) {
+	/**
+	 * @param StdClass $schema
+	 * @param StdClass|null $data - The data to enter in the form
+	 * @param array|null - Any errors to highlight and apply in the form
+	 */
+	public function __construct($schema, $data = null, $errors = null) {
 		$this->schema = $schema;
+		$this->data = $data;
+		$this->errors = (empty($errors) ? array() : $errors);
+
+		//easy and fast lookup
+		$this->errorPaths = array_column($errors, 'property');
 		$this->twig = new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__FILE__).'/../../templates'));
 	}
 
 	/**
 	 * @param array - Any additional options per element for rendering
 	 * e.g. array('my.path' => array('inputType' => 'textarea'))
-	 * @param object - The data to enter in the form
-	 * @param object - Any errors to highlight and apply in the form
+
 	 * @return string	HTML form
 	 */
-	public function render($formRenderOptions = array(), $data = null, $errors = null) {
+	public function render($formRenderOptions = array()) {
 		//update valid with schema $formRenderOptions config
 		if (!empty($formRenderOptions)) {
 			foreach ($formRenderOptions as $path => $config) {
@@ -32,15 +44,12 @@ class Generator {
 		};
 
 		$fieldGeneratorClassName =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($this->schema->type) . 'Field';
-		$fieldGenerator = new $fieldGeneratorClassName($this->schema, $this->twig);
-
+		$fieldGenerator = new $fieldGeneratorClassName($this, (empty($formRenderOptions['path']) ?
+			array() :
+			$formRenderOptions['path'])
+		);
 		return $this->twig->render('form.twig', array(
-			'html' => $fieldGenerator->render(
-				array(
-					'path' => (empty($formRenderOptions['path']) ?  array('root') : $formRenderOptions['path']),
-					'value' => $data
-				)
-			)
+			'html' => $fieldGenerator->render()
 		));
 	}
 }
