@@ -4,6 +4,7 @@ namespace JsonSchemaForm\ChunkGenerator;
 
 class NumberField extends \JsonSchemaForm\ChunkGenerator {
 	public function render($options = array()) {
-		return $this->_render('chunk/number.twig', $options);
+		$inputType = (isset($this->schema->inputType) ? $this->schema->inputType : 'number');
+		return $this->_render('chunk/' . $inputType . '.twig', $options);
 	}
 }

@@ -17,10 +17,11 @@ class Generator {
 	public function __construct($schema, $data = null, $errors = null) {
 		$this->schema = $schema;
 		$this->data = $data;
-		$this->errors = (empty($errors) ? array() : $errors);
 
+		$this->errors = (empty($errors) ? array() : $errors);
 		//easy and fast lookup
 		$this->errorPaths = array_column($errors, 'property');
+
 		$this->twig = new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__FILE__).'/../../templates'));
 	}
 
