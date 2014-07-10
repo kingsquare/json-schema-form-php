@@ -34,10 +34,13 @@ class Generator {
 		$fieldGeneratorClassName =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($this->schema->type) . 'Field';
 		$fieldGenerator = new $fieldGeneratorClassName($this->schema, $this->twig);
 
-		$options['html'] = $fieldGenerator->render(array(
-			'path' => array('root'),
-			'value' => $data
+		return $this->twig->render('form.twig', array(
+			'html' => $fieldGenerator->render(
+				array(
+					'path' => (empty($formRenderOptions['path']) ?  array('root') : $formRenderOptions['path']),
+					'value' => $data
+				)
+			)
 		));
-		return $this->twig->render('form.twig', $options);
 	}
 }

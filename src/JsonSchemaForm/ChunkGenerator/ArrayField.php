@@ -1,4 +1,5 @@
 <?php
+
 namespace JsonSchemaForm\ChunkGenerator;
 
 class ArrayField extends \JsonSchemaForm\ChunkGenerator {
@@ -24,7 +25,7 @@ class ArrayField extends \JsonSchemaForm\ChunkGenerator {
 		$subFormGeneratorOptions = $options;
 		$subFormGeneratorOptions['name'] = 'item ' . $key;
 		$subFormGeneratorOptions['isSubForm'] = true;
+		$subFormGeneratorOptions['path'][] = $key;
 		return $subFormGeneratorOptions;
 	}
-
 }
