@@ -11,12 +11,11 @@ class StringField extends \JsonSchemaForm\ChunkGenerator {
 		}
 
 		$options['options'] = array();
+		$enumTitles = (isset($this->schema->enumTitles) ? (object) $this->schema->enumTitles : new \StdClass());
 		foreach($this->schema->enum as $enumValue) {
 			$options['options'][] = array(
 				'id' =>  $this->getDomCompatible(implode(array_merge($this->path, array($enumValue)),  '-')),
-				'label' => ((isset($this->schema->enumTitles) && isset($this->schema->enumTitles[$enumValue])) ?
-						$this->schema->enumTitles[$enumValue] :
-						$enumValue),
+				'label' => (isset($enumTitles->$enumValue) ? $enumTitles->$enumValue: $enumValue),
 				'value' => $enumValue
 			);
 		}
