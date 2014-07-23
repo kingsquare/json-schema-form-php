@@ -31,7 +31,7 @@ class Generator {
 	}
 
 	public function getDefaultTwigEnvironment() {
-		return new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__FILE__).'/../../templates'));
+		return new \Twig_Environment(new \Twig_Loader_Filesystem(realpath(dirname(__FILE__).'/../../templates')));
 	}
 
 	/**
