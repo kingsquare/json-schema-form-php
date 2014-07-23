@@ -5,6 +5,9 @@ namespace JsonSchemaForm\ChunkGenerator;
 class ObjectField extends \JsonSchemaForm\ChunkGenerator {
 	public function render($options = array()) {
 		foreach ($this->schema->properties as $propertyName => $propertySchema) {
+			if (!isset($propertySchema->type)) {
+				continue;
+			}
 			$fieldGeneratorClassName =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($propertySchema->type) . 'Field';
 			$newPath = array_merge($this->path, array($propertyName));
 			$errors = array();
