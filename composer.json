@@ -7,8 +7,14 @@
             "email": "json-schema-form@kingsquare.nl"
         }
     ],
+	"repositories": [
+		{
+			"url": "https://github.com/alexmmm/json-schema.git",
+			"type": "git"
+		}
+	],
     "require": {
-        "justinrainbow/json-schema": "1.3.*",
+        "justinrainbow/json-schema": "dev-fix-required-property-validation",
         "twig/twig": "1.*"
     },
 	"autoload": {
