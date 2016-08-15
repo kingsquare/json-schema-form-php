@@ -20,7 +20,7 @@ class Generator {
 
 		$this->errors = (empty($errors) ? array() : $errors);
 		//easy and fast lookup
-		$this->errorPaths = array_column($errors, 'property');
+		$this->errorPaths = array_column($this->errors, 'property');
 	}
 
 	/**
