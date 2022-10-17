@@ -3,7 +3,8 @@
 namespace JsonSchemaForm\ChunkGenerator;
 
 class ArrayField extends \JsonSchemaForm\ChunkGenerator {
-	public function render($options = array()) {
+	public function render($options = array()): string
+    {
 		$chunkGeneratorClass =  'JsonSchemaForm\\ChunkGenerator\\' . ucfirst($this->schema->items->type) . 'Field';
 		$value = $this->getValue();
 		if (empty($value)) {
