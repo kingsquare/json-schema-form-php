@@ -3,7 +3,8 @@
 namespace JsonSchemaForm\ChunkGenerator;
 
 class ObjectField extends \JsonSchemaForm\ChunkGenerator {
-	public function render($options = array()) {
+	public function render($options = array()): string
+    {
 		foreach ($this->schema->properties as $propertyName => $propertySchema) {
 			if (!isset($propertySchema->type)) {
 				continue;
@@ -21,7 +22,7 @@ class ObjectField extends \JsonSchemaForm\ChunkGenerator {
 			$fieldGenerator = new $fieldGeneratorClassName($this->generator, $newPath);
 			$fieldHtmlChunks[$fieldGenerator->getDomClass()] = $fieldGenerator->render();
 		}
-		$options['fieldHtmlChunks'] = $fieldHtmlChunks;
+		$options['fieldHtmlChunks'] = $fieldHtmlChunks ?? null;
 		return $this->_render('chunk/object.twig', $options);
 	}
 }

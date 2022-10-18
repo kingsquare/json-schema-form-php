@@ -2,6 +2,12 @@
 
 namespace JsonSchemaForm;
 
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
+
 class Generator {
 	public $schema;
 	public $twig;
@@ -10,11 +16,11 @@ class Generator {
 	public $errorPaths;
 
 	/**
-	 * @param StdClass $schema
-	 * @param StdClass|null $data - The data to enter in the form
-	 * @param array|null - Any errors to highlight and apply in the form
+	 * @param \StdClass $schema
+	 * @param \StdClass|null $data - The data to enter in the form
+	 * @param array|null $errors - Any errors to highlight and apply in the form
 	 */
-	public function __construct($schema, $data = null, $errors = null) {
+	public function __construct(\StdClass $schema, \StdClass $data = null, array $errors = null) {
 		$this->schema = $schema;
 		$this->data = $data;
 
@@ -24,24 +30,26 @@ class Generator {
 	}
 
 	/**
-	 * @param \Twig_Environment $twig
+	 * @param Environment $twig
 	 */
-	public function setTwig(\Twig_Environment $twig) {
+	public function setTwig(Environment $twig) {
 		$this->twig = $twig;
 	}
 
-	public function getDefaultTwigEnvironment() {
-		return new \Twig_Environment(new \Twig_Loader_Filesystem(realpath(dirname(__FILE__).'/../../templates')));
+	public function getDefaultTwigEnvironment(): Environment
+    {
+		return new Environment(new FilesystemLoader(realpath(dirname(__FILE__).'/../../templates')));
 	}
 
 	/**
-	 * @param array - Any additional options per element for rendering
+	 * @param array $formRenderOptions - Any additional options per element for rendering
 	 * e.g. array('my.path' => array('inputType' => 'textarea'))
-
 	 * @return string	HTML form
+     * @throws SyntaxError|LoaderError|RuntimeError
 	 */
-	public function render($formRenderOptions = array()) {
-		if (!($this->twig instanceof \Twig_Environment)) {
+	public function render(array $formRenderOptions = array()): string
+    {
+		if (!($this->twig instanceof Environment)) {
 			$this->setTwig($this->getDefaultTwigEnvironment());
 		}
 

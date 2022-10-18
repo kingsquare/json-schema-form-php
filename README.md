@@ -24,6 +24,8 @@ $schema = $retriever->retrieve('file://' . realpath('schema.json'));
 
 // Generate
 $formGenerator = new JsonSchemaForm\Generator($schema);
+// Optional supply your twig environment
+$formGenerator->setTwig($yourTwigEnvironment);
 echo $formGenerator->render();
 ?>
 ```
